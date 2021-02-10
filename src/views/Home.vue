@@ -1,18 +1,50 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <div @click="NIm">{{message}}</div>
+    <div v-for="(item,index) in arr" :key="index" @click="go({index:index})">{{item}}</div>
+    <input  v-model="mo"  @input="chmo"/>
   </div>
 </template>
 
 <script lang="ts">
+import store from  "../store/index"
 import { Options, Vue } from 'vue-class-component';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
 @Options({
   components: {
-    HelloWorld,
   },
+  data(){
+    return {
+
+    }
+  },
+  beforeCreate() {
+    console.log("777")
+  },
+  created() {
+    console.log("7777")
+  },
+  beforeMount() {
+    console.log(this.arr)
+  },
+  mounted() {
+    console.log(this.arr)
+    console.log(store)
+  }
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  public message="123";
+  public  mo="hello";
+  public arr=[1,2,3];
+  public  go=({...index})=>{
+    this.arr.splice(index.index,1)
+  }
+  public chmo=()=>{
+    console.log(this.mo)
+  }
+  public NIm=()=>{
+    store.commit("che")
+    console.log(store.state)
+  }
+}
 </script>
